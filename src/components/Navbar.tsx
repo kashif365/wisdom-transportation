@@ -1,7 +1,9 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { Phone, Menu, X } from "lucide-react";
 
 const links = [
   { href: "/", label: "Home" },
@@ -17,101 +19,109 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 shadow-md" style={{ backgroundColor: "#1a1a1a" }}>
+    <header style={{ backgroundColor: "#0d1b2a" }} className="sticky top-0 z-50">
+      {/* Top bar */}
+      <div style={{ backgroundColor: "#47DEB8" }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex justify-end items-center gap-6">
+          <a
+            href="tel:7136411700"
+            className="flex items-center gap-1.5 text-xs font-semibold text-white hover:opacity-80 transition-opacity"
+          >
+            <Phone size={13} />
+            713-641-1700
+          </a>
+          <span className="text-white/60 text-xs">|</span>
+          <span className="text-white/80 text-xs">TXDOT &amp; USDOT Certified</span>
+        </div>
+      </div>
+
+      {/* Main nav */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
-            <div
-              className="w-12 h-12 rounded-full flex items-center justify-center text-white font-black text-xl border-2"
-              style={{ backgroundColor: "#2d6b2e", borderColor: "#4a8f4b" }}
-            >
-              W
-            </div>
-            <div>
-              <div className="text-white font-bold text-lg leading-tight">Wisdom</div>
-              <div className="text-xs leading-tight" style={{ color: "#4a8f4b" }}>
-                Transportation
-              </div>
-            </div>
+          <Link href="/" className="flex-shrink-0">
+            <Image
+              src="/imgi_1_logo.jpg"
+              alt="Wisdom Transportation"
+              width={280}
+              height={60}
+              className="h-12 w-auto object-contain"
+              priority
+            />
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-1">
             {links.map(({ href, label }) => {
               const active = pathname === href;
               return (
                 <Link
                   key={href}
                   href={href}
-                  className="px-4 py-2 rounded-md text-sm font-medium transition-all duration-200"
-                  style={{
-                    backgroundColor: active ? "#2d6b2e" : "transparent",
-                    color: active ? "#ffffff" : "#d1d5db",
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!active) {
-                      e.currentTarget.style.backgroundColor = "#2d6b2e22";
-                      e.currentTarget.style.color = "#ffffff";
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!active) {
-                      e.currentTarget.style.backgroundColor = "transparent";
-                      e.currentTarget.style.color = "#d1d5db";
-                    }
-                  }}
+                  className="relative px-4 py-2 text-sm font-medium transition-colors duration-150"
+                  style={{ color: active ? "#47DEB8" : "#cbd5e1" }}
                 >
                   {label}
+                  {active && (
+                    <span
+                      className="absolute bottom-0 left-4 right-4 h-0.5 rounded-full"
+                      style={{ backgroundColor: "#47DEB8" }}
+                    />
+                  )}
                 </Link>
               );
             })}
             <Link
               href="/contact"
-              className="ml-4 px-5 py-2 rounded-md text-sm font-semibold text-white transition-all duration-200"
-              style={{ backgroundColor: "#2d6b2e" }}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#1a4a1b")}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#2d6b2e")}
+              className="ml-4 px-5 py-2.5 rounded-md text-sm font-bold transition-all duration-150 hover:opacity-90"
+              style={{ backgroundColor: "#47DEB8", color: "#0d1b2a" }}
             >
               Get a Quote
             </Link>
           </nav>
 
-          {/* Mobile hamburger */}
+          {/* Mobile button */}
           <button
-            className="md:hidden text-white p-2"
+            className="lg:hidden p-2"
+            style={{ color: "#47DEB8" }}
             onClick={() => setOpen(!open)}
             aria-label="Toggle menu"
           >
-            <div className="w-6 h-0.5 bg-white mb-1.5 transition-all" style={{ transform: open ? "rotate(45deg) translate(5px, 5px)" : "none" }} />
-            <div className="w-6 h-0.5 bg-white mb-1.5 transition-all" style={{ opacity: open ? 0 : 1 }} />
-            <div className="w-6 h-0.5 bg-white transition-all" style={{ transform: open ? "rotate(-45deg) translate(5px, -5px)" : "none" }} />
+            {open ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden border-t px-4 pb-4" style={{ backgroundColor: "#111111", borderColor: "#333" }}>
+        <div
+          className="lg:hidden border-t px-4 py-4 space-y-1"
+          style={{ backgroundColor: "#132237", borderColor: "#1e3a52" }}
+        >
           {links.map(({ href, label }) => (
             <Link
               key={href}
               href={href}
-              className="block py-3 text-sm font-medium border-b"
-              style={{ color: pathname === href ? "#4a8f4b" : "#d1d5db", borderColor: "#222" }}
+              className="block px-3 py-3 rounded-md text-sm font-medium transition-colors"
+              style={{
+                color: pathname === href ? "#47DEB8" : "#94a3b8",
+                backgroundColor: pathname === href ? "#1e3a52" : "transparent",
+              }}
               onClick={() => setOpen(false)}
             >
               {label}
             </Link>
           ))}
-          <Link
-            href="/contact"
-            className="mt-4 block text-center py-3 rounded-md text-sm font-semibold text-white"
-            style={{ backgroundColor: "#2d6b2e" }}
-            onClick={() => setOpen(false)}
-          >
-            Get a Quote
-          </Link>
+          <div className="pt-3">
+            <Link
+              href="/contact"
+              className="block text-center py-3 rounded-md text-sm font-bold"
+              style={{ backgroundColor: "#47DEB8", color: "#0d1b2a" }}
+              onClick={() => setOpen(false)}
+            >
+              Get a Quote
+            </Link>
+          </div>
         </div>
       )}
     </header>

@@ -2,25 +2,22 @@
 
 @theme inline {
   --color-background: #ffffff;
-  --color-foreground: #1a1a1a;
-  --color-primary: #2d6b2e;
-  --color-primary-dark: #1a4a1b;
-  --color-primary-light: #4a8f4b;
-  --color-accent: #f0f9f0;
+  --color-foreground: #0d1b2a;
+  --color-teal: #47DEB8;
+  --color-teal-dark: #2bbf9a;
+  --color-teal-light: #e0faf4;
+  --color-navy: #0d1b2a;
+  --color-navy-2: #132237;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
 body {
-  background: var(--color-background);
-  color: var(--color-foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
+  background: #ffffff;
+  color: #0d1b2a;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
